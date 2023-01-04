@@ -1,9 +1,9 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView
+
+from . import views
+from rest_framework_simplejwt import views as jwt_views
+
 
 urlpatterns = [
-    path("login/", TokenObtainPairView.as_view()),
-    # path("users/")
-    # path("users/profile/") GET RetriveAPIView
-    # path("users/<uuid:user_id>/") PATCH UpdateAPIView
+    path("users/", views.UserView.as_view()),
 ]

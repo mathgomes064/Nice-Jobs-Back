@@ -1,6 +1,8 @@
 from django.urls import path
 
+from . import views
+from rest_framework_simplejwt import views as jwt_views
+
 urlpatterns = [
-    # path("schedules/",) GET POST - ListCreateApiView
-    # path("schedules/<uuid:schedule_id>/") PATCH - UpdateApiView
+    path("schedules/", views.ScheduleView.as_view()),
 ]

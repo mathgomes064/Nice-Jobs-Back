@@ -3,7 +3,7 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
+    def create(self, validated_data: dict) -> User:
         return User.objects.create_user(**validated_data)
 
     class Meta:
@@ -18,13 +18,6 @@ class UserSerializer(serializers.ModelSerializer):
             "isOffering",
             "isActive",
             "createdAt",
-            "updatedAt",
-        ]
-        read_only_fields = [
-            "isPremium",
-            "isOffering",
-            "isActive",
-            "createAt",
             "updatedAt",
         ]
         extra_kwargs = {
