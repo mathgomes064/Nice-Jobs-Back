@@ -3,20 +3,23 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    def create(self, validated_data: dict) -> User:
+        return User.objects.create_user(**validated_data)
+
     class Meta:
         model = User
         fields = [
             "id",
             "username",
-            "email",
             "fone",
-            "is_premium",
-            "is_active",
-            "is_offering",
-            "created_at",
-            "update_at",
+            "email",
+            "password",
+            "isPremium",
+            "isOffering",
+            "isActive",
+            "createdAt",
+            "updatedAt",
         ]
-        extra_kwargs = {"password": {"write_only": True}}
-
-    def create(self, validated_data: dict) -> User:
-        return User.objects.create_superuser(**validated_data)
+        extra_kwargs = {
+            "password": {"write_only": True},
+        }

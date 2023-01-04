@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+from django.core.management.utils import get_random_secret_key
 from pathlib import Path
 from datetime import timedelta
 
@@ -26,7 +26,7 @@ dotenv.load_dotenv()
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+
 DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -57,6 +58,8 @@ MY_APPS = [
     "schedules",
     "services",
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
@@ -100,8 +103,8 @@ DATABASES = {
         "NAME": os.getenv("POSTGRES_DB"),
         "USER": os.getenv("POSTGRES_USER"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": "127.0.0.1",
-        "PORT": 5432,
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
     }
 }
 
