@@ -9,6 +9,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=255)
     email = models.EmailField(max_length=127, unique=True)
     fone = models.CharField(max_length=20)
+    bio = models.CharField(max_length=255, null=True, default=None)
     is_premium = models.BooleanField(null=True, default=False)
     is_active = models.BooleanField(null=True, default=True)
     is_offering = models.BooleanField(null=True, default=False)

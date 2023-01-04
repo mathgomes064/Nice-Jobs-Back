@@ -13,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
             "username",
             "fone",
             "email",
+            "bio",
             "password",
             "is_premium",
             "is_offering",
