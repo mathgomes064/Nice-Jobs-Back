@@ -4,5 +4,5 @@ from rest_framework_simplejwt import views as jwt_views
 
 
 urlpatterns = [
-    path("users/", views.UserView.as_view()),
+    path("schedules/", views.ScheduleView.as_view()),
 ]
