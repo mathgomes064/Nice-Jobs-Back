@@ -13,12 +13,13 @@ class UserSerializer(serializers.ModelSerializer):
             "username",
             "fone",
             "email",
+            "bio",
             "password",
-            "isPremium",
-            "isOffering",
-            "isActive",
-            "createdAt",
-            "updatedAt",
+            "is_premium",
+            "is_offering",
+            "is_active",
+            "created_at",
+            "updated_at",
         ]
         extra_kwargs = {
             "password": {"write_only": True},
