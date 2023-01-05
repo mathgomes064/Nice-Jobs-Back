@@ -1,6 +1,7 @@
 from django.urls import path
+from . import views
 
 urlpatterns = [
-    # path("services/",) GET POST - ListCreateApiView
-    # path("services/<uuid:service_id>/") PATCH - UpdateApiView
+    path('services/', views.ServiceView.as_view()),
+    path('services/<int:service_id>/', views.ServiceDetailView.as_view()),
 ]
