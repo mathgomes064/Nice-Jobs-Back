@@ -21,10 +21,10 @@ class ServiceView(generics.ListCreateAPIView):
     pagination_class = CustomServiceResultsSetPagination
 
     def perform_create(self, serializer):
-        category_id = self.request.data.pop("category")
+        category_dict = self.request.data.pop("category")
         description_dict = self.request.data.pop("description")
 
-        category_obj = Category.objects.get_or_create(id=category_id)[0]
+        category_obj = Category.objects.get_or_create(**category_dict)[0]
 
         description_obj = Description.objects.create(**description_dict)
 
