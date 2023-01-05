@@ -17,8 +17,8 @@ class Schedule(models.Model):
     #     related_name="schedules",
     # )
 
-    # user = models.ForeignKey(
-    #     "users.User",
-    #     on_delete=models.CASCADE,
-    #     related_name="schedules",
-    # )
+    user = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="schedules",
+    )
