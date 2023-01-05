@@ -8,7 +8,7 @@ class DescriptionSerializer(serializers.ModelSerializer):
         model = Description
         fields = [
             "id",
-            "serviceDescription",
-            "serviceValue",
-            "atuationArea",
+            "service_description",
+            "service_value",
+            "atuation_area",
         ]
