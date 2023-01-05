@@ -9,7 +9,7 @@ class Service(models.Model):
     is_active = models.BooleanField(default=True, null=False)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
-    description = models.ForeignKey(
+    description = models.OneToOneField(
         "descriptions.Description",
         on_delete=models.CASCADE,
         null=False,
@@ -19,7 +19,7 @@ class Service(models.Model):
         "categories.Category",
         on_delete=models.CASCADE,
         null=False,
-        related_name="service",
+        related_name="services",
     )
     user = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, null=False, related_name="service"
