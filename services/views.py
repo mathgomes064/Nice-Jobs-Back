@@ -5,6 +5,12 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 
+from descriptions.models import Description
+from categories.models import Category
+from .permissions import IsOwnerService
+
+from .pagination import CustomServiceResultsSetPagination
+
 
 class ServiceView(generics.ListCreateAPIView):
     queryset = Service.objects.all()
@@ -12,19 +18,25 @@ class ServiceView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        service_id = self.kwargs.get("service_id")
-        service_obj = get_object_or_404(Service, pk=service_id)
-        service = Service.objects.filter(service_id=service_obj)
-
-        return service
+    pagination_class = CustomServiceResultsSetPagination
 
     def perform_create(self, serializer):
-        serializer.save(user_id=self.request.user)
+        category_dict = self.request.data.pop("category")
+        description_dict = self.request.data.pop("description")
+
+        category_obj = Category.objects.get_or_create(**category_dict)[0]
+
+        description_obj = Description.objects.create(**description_dict)
+
+        serializer.save(
+            user=self.request.user, description=description_obj, category=category_obj
+        )
 
 
 class ServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerService]
+
+    lookup_url_kwarg = "service_id"
