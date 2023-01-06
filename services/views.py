@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 
 from descriptions.models import Description
 from categories.models import Category
-from users.permissions import IsOwnerResource
+from .permissions import IsOwnerService
 
 from .pagination import CustomServiceResultsSetPagination
 
@@ -37,6 +37,6 @@ class ServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsOwnerResource]
+    permission_classes = [IsAuthenticated, IsOwnerService]
 
     lookup_url_kwarg = "service_id"
