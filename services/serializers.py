@@ -10,8 +10,8 @@ class ServiceSerializer(serializers.ModelSerializer):
 
     service_owner = serializers.ReadOnlyField(source="user_id.username")
     user = UserSerializer(read_only=True)
-    category = CategorySerializer(read_only=True)
-    description = DescriptionSerializer(read_only=True)
+    category = CategorySerializer()
+    description = DescriptionSerializer()
 
     class Meta:
         model = Service
