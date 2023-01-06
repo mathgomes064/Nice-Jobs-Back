@@ -141,7 +141,7 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "_core",
-    "DESCRIPTION": "register and access bands and their albums",
+    "DESCRIPTION": "API de cadastro de serviços.",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": True,
     # OTHER SETTINGS
