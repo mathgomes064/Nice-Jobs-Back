@@ -1,0 +1,13 @@
+from django.urls import path
+
+from . import views
+from rest_framework_simplejwt import views as jwt_views
+from schedules import views as schedule_views
+
+urlpatterns = [
+    path("login/", jwt_views.TokenObtainPairView.as_view()),
+    path("users/", views.UserView.as_view()),
+    path("users/<uuid:user_id>/", views.UserDetailView.as_view()),
+    path("users/profile/", views.UserProfileView.as_view()),
+    # path("users/<int:pk>/schedules/", schedule_views.ScheduleView.as_view()),
+]
