@@ -5,6 +5,7 @@ import uuid
 class Schedule(models.Model):
     class Meta:
         ordering = ("id",)
+        unique_together = ("date", "hour", "service", "user")
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField()
