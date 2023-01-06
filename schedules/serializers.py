@@ -5,14 +5,7 @@ from .models import Schedule
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
-        fields = [
-            "id",
-            "date",
-            "hour",
-            "is_done",
-            # "service",
-            # "user",
-        ]
+        fields = "__all__"
 
-    def create(self, validated_data: dict) -> Schedule:
-        return Schedule.objects.create_superuser(**validated_data)
+    def create(self, validated_data):
+        return Schedule.objects.create(**validated_data)

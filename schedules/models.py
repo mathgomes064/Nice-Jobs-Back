@@ -11,14 +11,14 @@ class Schedule(models.Model):
         default=False,
     )
 
-    # service = models.ForeignKey(
-    #     "services.Service",
-    #     on_delete=models.CASCADE,
-    #     related_name="schedules",
-    # )
+    service_id = models.ForeignKey(
+        "services.Service",
+        on_delete=models.CASCADE,
+        related_name="schedules",
+    )
 
-    # user = models.ForeignKey(
-    #     "users.User",
-    #     on_delete=models.CASCADE,
-    #     related_name="schedules",
-    # )
+    user_id = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="schedule_user",
+    )
