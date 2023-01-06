@@ -38,3 +38,5 @@ class ServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ServiceSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsOwnerResource]
+
+    lookup_url_kwarg = "service_id"
