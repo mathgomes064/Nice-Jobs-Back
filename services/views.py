@@ -13,7 +13,7 @@ class ServiceView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        service_id = self.kwargs.get('service_id')
+        service_id = self.kwargs.get("service_id")
         service_obj = get_object_or_404(Service, pk=service_id)
         service = Service.objects.filter(service_id=service_obj)
 
