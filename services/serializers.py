@@ -3,6 +3,8 @@ from users.serializers import UserSerializer
 from categories.serializers import CategorySerializer
 from descriptions.serializers import DescriptionSerializer
 
+from categories.models import Category
+from descriptions.models import Description
 from .models import Service
 
 
@@ -12,6 +14,17 @@ class ServiceSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     category = CategorySerializer()
     description = DescriptionSerializer()
+
+    def create(self, validated_data):
+        category_dict = validated_data.pop("category")
+        description_dict = validated_data.pop("description")
+
+        category_obj = Category.objects.get_or_create(**category_dict)[0]
+        description_obj = Description.objects.create(**description_dict)
+
+        return Service.objects.create(
+            **validated_data, category=category_obj, description=description_obj
+        )
 
     class Meta:
         model = Service
