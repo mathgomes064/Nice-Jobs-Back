@@ -3,10 +3,7 @@ from .serializers import ServiceSerializer
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import get_object_or_404
 
-from descriptions.models import Description
-from categories.models import Category
 from .permissions import IsOwnerService
 
 from .pagination import CustomServiceResultsSetPagination
@@ -21,16 +18,7 @@ class ServiceView(generics.ListCreateAPIView):
     pagination_class = CustomServiceResultsSetPagination
 
     def perform_create(self, serializer):
-        category_dict = self.request.data.pop("category")
-        description_dict = self.request.data.pop("description")
-
-        category_obj = Category.objects.get_or_create(**category_dict)[0]
-
-        description_obj = Description.objects.create(**description_dict)
-
-        serializer.save(
-            user=self.request.user, description=description_obj, category=category_obj
-        )
+        serializer.save(user=self.request.user)
 
 
 class ServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
