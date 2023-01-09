@@ -22,7 +22,7 @@ class Service(models.Model):
         related_name="services",
     )
     user = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, null=False, related_name="service"
+        "users.User", on_delete=models.CASCADE, null=False, related_name="services"
     )
 
     class Meta:
