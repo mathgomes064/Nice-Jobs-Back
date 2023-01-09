@@ -1,14 +1,21 @@
 from rest_framework import serializers
 from .models import User
-from services.serializers import ServiceSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data: dict) -> User:
         return User.objects.create_user(**validated_data)
-    def get_services(self):
-        services = ServiceSerializer(many=True)
-        return services
+
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            if key == "password":
+                instance.set_password(value)
+            else:
+                setattr(instance, key, value)
+
+        instance.save()
+
+        return instance
 
     class Meta:
         model = User
@@ -28,5 +35,5 @@ class UserSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "password": {"write_only": True},
-            "services": {"read_only": True},
         }
+        depth = 1
