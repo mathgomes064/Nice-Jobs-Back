@@ -1,4 +1,8 @@
-from rest_framework.generics import ListCreateAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework.generics import (
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+    RetrieveAPIView,
+)
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -12,7 +16,7 @@ class UserView(ListCreateAPIView):
     queryset = User.objects.all()
 
 
-class UserDetailView(UpdateAPIView):
+class UserDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsOwnerResource]
     serializer_class = UserSerializer
