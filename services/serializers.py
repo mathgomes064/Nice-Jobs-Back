@@ -40,3 +40,22 @@ class ServiceSerializer(serializers.ModelSerializer):
             "category",
         ]
         read_only_fields = ["created_at", "updated_at"]
+
+
+class ListServiceByUserIdSerializer(serializers.ModelSerializer):
+    service_owner = serializers.ReadOnlyField(source="user_id.username")
+    category = CategorySerializer()
+    description = DescriptionSerializer()
+
+    class Meta:
+        model = Service
+        fields = [
+            "id",
+            "service_name",
+            "service_owner",
+            "is_active",
+            "created_at",
+            "updated_at",
+            "description",
+            "category",
+        ]
