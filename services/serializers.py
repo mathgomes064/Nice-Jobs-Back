@@ -26,6 +26,26 @@ class ServiceSerializer(serializers.ModelSerializer):
             **validated_data, category=category_obj, description=description_obj
         )
 
+    def update(self, instance, validated_data):
+        description_dict = validated_data.pop("description", None)
+        category_dict = validated_data.pop("category", None)
+
+        if description_dict:
+            for key, value in description_dict.items():
+                setattr(instance.description, key, value)
+                instance.description.save()
+
+        if category_dict:
+            for key, value in category_dict.items():
+                category_obj = Category.objects.get_or_create(name=value)[0]
+                instance.category = category_obj
+
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+
+        instance.save()
+        return instance
+
     class Meta:
         model = Service
         fields = [
